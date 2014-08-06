@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e1e1e1"
+    tools:context=".Main">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="10dip"
+        android:background="@android:color/white">
+
+        <EditText
+            android:id="@+id/pseudo"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:hint="@string/pseudoHint"
+            android:background="@android:color/transparent"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/black"
+            />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e1e1e1"
+            android:layout_below="@id/pseudo" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_marginRight="-50dip"
+            android:layout_below="@+id/separator" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Main" >
+
+    <item
+        android:id="@+id/action_add_player"
+        android:actionLayout="@layout/action_bar_icon_add_player"
+        android:icon="@drawable/shape_round"
+        android:title="@string/action_add_player"
+        android:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/action_valid"
+        android:icon="@drawable/ic_action_accept"
+        android:title="@string/action_add_player"
+        android:showAsAction="always"/>
+
+</menu>

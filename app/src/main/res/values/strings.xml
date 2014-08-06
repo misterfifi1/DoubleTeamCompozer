@@ -4,5 +4,11 @@
     <string name="app_name">DoubleTeamCompozer</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add_player">Ajouter Joueur</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="pseudoHint">Pseudo du joueur</string>
+    <string name="nombre_joueur_minimum">joueurs minimum requis</string>
+    <string name="nameTeam">Nom de l\'équipe</string>
+    <string name="team">Equipe</string>
 
 </resources>

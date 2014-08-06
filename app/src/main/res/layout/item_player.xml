@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ttf="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <com.agency.trium.doubleteamcompozer.views.textview.TypefacedTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        ttf:typeface="Roboto-Light.ttf"
+        android:textSize="17sp"
+        android:layout_marginLeft="10dip"
+        />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-50dip"
+        android:layout_centerVertical="true"
+        />
+</RelativeLayout>
