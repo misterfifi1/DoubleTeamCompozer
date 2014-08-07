@@ -37,6 +37,9 @@ public class PlayerCell extends ViewCell<Player> implements View.OnLongClickList
 
     @Override
     public void remplir() {
+        if (getObject().getPseudo() != null)
+            pseudo.setText(getObject().getPseudo());
+        ratingBar.setRating(getObject().getNote());
     }
 
     @Override
@@ -63,14 +66,14 @@ public class PlayerCell extends ViewCell<Player> implements View.OnLongClickList
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                getObject().setNote((int)v);
+                getObject().setNote((int) v);
             }
         });
     }
 
     @Override
     public boolean onLongClick(View view) {
-        ((PlayerActivity)getContext()).removePlayer(getPosition());
+        ((PlayerActivity) getContext()).removePlayer(getPosition());
         return false;
     }
 }

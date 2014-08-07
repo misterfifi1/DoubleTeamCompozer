@@ -3,6 +3,7 @@ package com.agency.trium.doubleteamcompozer.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +15,12 @@ import com.agency.trium.doubleteamcompozer.R;
 import com.agency.trium.doubleteamcompozer.adapters.ObjectAdapter;
 import com.agency.trium.doubleteamcompozer.modele.Player;
 import com.agency.trium.doubleteamcompozer.modele.Team;
+import com.agency.trium.doubleteamcompozer.utils.AlgoUtils;
+import com.agency.trium.doubleteamcompozer.utils.RandomUtils;
 import com.agency.trium.doubleteamcompozer.views.cell.PlayerCell;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlayerActivity extends Activity implements View.OnClickListener {
@@ -41,15 +45,20 @@ public class PlayerActivity extends Activity implements View.OnClickListener {
         addListerners();
     }
 
+
+
     private void perform() {
 
-        teams = (ArrayList<Team>)getIntent().getExtras().getSerializable(EquipeActivity.LIST_TEAM);
+        teams = (ArrayList<Team>) getIntent().getExtras().getSerializable(EquipeActivity.LIST_TEAM);
         numberTeam = teams.size();
 
-        for(int i= 0; i < numberTeam; i++)
-            players.add(new Player());
+        if(players.size() == 0) {
+            for (int i = 0; i < numberTeam; i++)
+                players.add(new Player());
+        }
 
         playerAdapter.notifyDataSetChanged();
+        playerAdapter.notifyDataSetInvalidated();
         setCount();
 
     }
@@ -57,13 +66,21 @@ public class PlayerActivity extends Activity implements View.OnClickListener {
 
     private void load() {
         list = (ListView) findViewById(R.id.listView);
-        players = new ArrayList<Player>();
+
+        if(getIntent().getExtras().getSerializable(LISTPLAYER) == null) {
+            players = new ArrayList<Player>();
+        }else{
+            players = (ArrayList<Player>) getIntent().getExtras().getSerializable(LISTPLAYER);
+            Log.e("Players",players.toString());
+        }
+
         playerAdapter = new ObjectAdapter<Player>(this, players, R.layout.cell_player, PlayerCell.class);
         list.setAdapter(playerAdapter);
     }
 
     private void addListerners() {
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,20 +139,31 @@ public class PlayerActivity extends Activity implements View.OnClickListener {
 
     private void nextStep() {
         checkAllNamePlayer();
+        players = AlgoUtils.partagerEnEquipe(players,teams.size());
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EquipeActivity.LIST_TEAM,teams);
-        intent.putExtra(LISTPLAYER,players);
+        intent.putExtra(EquipeActivity.LIST_TEAM, teams);
+        intent.putExtra(LISTPLAYER, players);
         startActivity(intent);
+        finish();
     }
 
     private void checkAllNamePlayer() {
         int playerWithoutName = 0;
         for (Player player : players) {
             if (player.getPseudo() == null) {
-                player.setPseudo(getString(R.string.pseudo) + " " + (playerWithoutName+1));
+                player.setPseudo(getString(R.string.pseudo) + " " + (playerWithoutName + 1));
                 player.setEquipe(0);
                 playerWithoutName++;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(this,EquipeActivity.class);
+        intent.putExtra(EquipeActivity.LIST_TEAM, teams);
+        startActivity(intent);
+        this.overridePendingTransition(0, 0);
     }
 }

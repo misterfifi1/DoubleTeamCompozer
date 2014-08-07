@@ -49,4 +49,13 @@ public class Player implements Serializable{
     public void setEquipe(int equipe) {
         this.equipe = equipe;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "pseudo='" + pseudo + '\'' +
+                ", note=" + note +
+                ", equipe=" + equipe +
+                '}';
+    }
 }

@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.agency.trium.doubleteamcompozer.R;
 import com.agency.trium.doubleteamcompozer.adapters.ObjectAdapter;
+import com.agency.trium.doubleteamcompozer.modele.Player;
 import com.agency.trium.doubleteamcompozer.modele.Team;
 import com.agency.trium.doubleteamcompozer.views.cell.TeamCell;
 
@@ -38,8 +40,11 @@ public class EquipeActivity extends Activity implements View.OnClickListener {
     }
 
     private void perform() {
-        teams.add(new Team());
-        teams.add(new Team());
+
+        if (teams.size() == 0) {
+            teams.add(new Team());
+            teams.add(new Team());
+        }
         teamAdapter.notifyDataSetChanged();
         setCount();
     }
@@ -47,7 +52,11 @@ public class EquipeActivity extends Activity implements View.OnClickListener {
 
     private void load() {
         list = (ListView) findViewById(R.id.listView);
-        teams = new ArrayList<Team>();
+        if (getIntent() == null || getIntent().getExtras() == null || getIntent().getExtras().getSerializable(LIST_TEAM) == null) {
+            teams = new ArrayList<Team>();
+        } else {
+            teams = (ArrayList<Team>) getIntent().getExtras().getSerializable(LIST_TEAM);
+        }
         teamAdapter = new ObjectAdapter<Team>(this, teams, R.layout.cell_team, TeamCell.class);
         list.setAdapter(teamAdapter);
     }
@@ -93,6 +102,7 @@ public class EquipeActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent(this, PlayerActivity.class);
         intent.putExtra(LIST_TEAM, teams);
         startActivity(intent);
+        finish();
     }
 
 
@@ -100,7 +110,7 @@ public class EquipeActivity extends Activity implements View.OnClickListener {
         int teamWithoutName = 0;
         for (Team team : teams) {
             if (team.getName() == null) {
-                team.setName(getString(R.string.team) + " " + (teamWithoutName+1));
+                team.setName(getString(R.string.team) + " " + (teamWithoutName + 1));
                 teamWithoutName++;
             }
         }

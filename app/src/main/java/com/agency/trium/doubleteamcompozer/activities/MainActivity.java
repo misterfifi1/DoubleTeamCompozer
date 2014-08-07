@@ -3,6 +3,7 @@ package com.agency.trium.doubleteamcompozer.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.agency.trium.doubleteamcompozer.adapters.ObjectAdapter;
 import com.agency.trium.doubleteamcompozer.adapters.StickyAdapter;
 import com.agency.trium.doubleteamcompozer.modele.Player;
 import com.agency.trium.doubleteamcompozer.modele.Team;
+import com.agency.trium.doubleteamcompozer.utils.AlgoUtils;
 import com.agency.trium.doubleteamcompozer.views.cell.PlayerCell;
 
 import java.util.ArrayList;
@@ -68,13 +70,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_valid:
+            case R.id.ic_action_refresh:
+                reloadTeam();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void reloadTeam() {
+        ArrayList<Player> tmp = AlgoUtils.partagerEnEquipe(players, teams.size());
+        players.clear();
+
+        Log.e("tmp",tmp.toString());
+        players.addAll(tmp);
+        stickyAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onClick(View view) {
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(this,PlayerActivity.class);
+        intent.putExtra(EquipeActivity.LIST_TEAM, teams);
+        intent.putExtra(PlayerActivity.LISTPLAYER, players);
+        startActivity(intent);
+        this.overridePendingTransition(0, 0);
     }
 }

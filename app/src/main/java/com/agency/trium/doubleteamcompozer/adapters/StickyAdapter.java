@@ -23,10 +23,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 public class StickyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     ArrayList<Player> players;
-    ArrayList<Team>teams;
+    ArrayList<Team> teams;
     private LayoutInflater inflater;
 
-    public StickyAdapter(Context context,ArrayList<Player> players,ArrayList<Team>teams) {
+    public StickyAdapter(Context context, ArrayList<Player> players, ArrayList<Team> teams) {
         inflater = LayoutInflater.from(context);
         this.players = players;
         this.teams = teams;
@@ -68,7 +68,7 @@ public class StickyAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        Log.e("La", "" + position);
+        int team = players.get(position).getEquipe();
         HeaderViewHolder holder;
         if (convertView == null) {
             holder = new HeaderViewHolder();
@@ -79,16 +79,18 @@ public class StickyAdapter extends BaseAdapter implements StickyListHeadersAdapt
             holder = (HeaderViewHolder) convertView.getTag();
         }
 
+
         //set header text as first char in name
-        String headerText = teams.get(position).getName();
+        String headerText = teams.get(team).getName();
+        Log.e("HeaderText",headerText);
         holder.text.setText(headerText);
+
         return convertView;
     }
 
     @Override
     public long getHeaderId(int position) {
-        //return the first character of the country as ID because this is what headers are based upon
-        return players.get(position).getEquipe();
+        return teams.get(players.get(position).getEquipe()).getName().hashCode();
     }
 
     class HeaderViewHolder {

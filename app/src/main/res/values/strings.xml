@@ -10,5 +10,6 @@
     <string name="nombre_joueur_minimum">joueurs minimum requis</string>
     <string name="nameTeam">Nom de l\'équipe</string>
     <string name="team">Equipe</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>

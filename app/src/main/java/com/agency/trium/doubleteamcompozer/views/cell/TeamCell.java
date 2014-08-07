@@ -41,6 +41,10 @@ public class TeamCell extends ViewCell<Team> implements View.OnLongClickListener
 
     @Override
     public void remplir() {
+
+        if (getObject().getName() != null)
+            nameTeam.setText(getObject().getName());
+
         if (getObject() != null) {
             this.number.setText(getPosition() + "");
             this.number.setBackgroundColor(getContext().getResources().getColor(getObject().getColorId()));
